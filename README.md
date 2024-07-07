@@ -80,4 +80,4 @@ Next is to test these combined on our target_images!
 
 For this, we use opencv library, first we read the image using imread, resize it, then convert into a numpy array, then reshape it as we want! (1,28,28,1) to match it though..
 
-Then apply our functions for naive bayes and find the sentiment.
+Then apply our functions for naive bayes(just to mention, even MultinomialNB) and find the sentiment.
