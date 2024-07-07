@@ -3,32 +3,32 @@
 ***PS:***
 You have been provided with a dataset containing information about various pincodes across India, including their corresponding longitudes and latitudes (clustering_data.csv). Your task is to focus specifically on the pincodes of your home state.\
 
-***Procedure:***Libraries used: numpy, pandas, matplotlib, contextily, Geopandas\
+***Procedure:*** Libraries used: numpy, pandas, matplotlib, contextily, Geopandas\
 
 ***DATA PREPROCESSING:***
 
-1.Setting NA values to NaN
-2.Stripping values to remove extra spaces
-3.Converting using to_numeric
+1.Setting NA values to NaN\
+2.Stripping values to remove extra spaces\
+3.Converting using to_numeric\
 4.Using .interpolate() to fill NaN values - it estimates missing values using surrounding data.\
 ***DATA VISUALISATION:***
 
-1.Creating a GeoPandas dataframe in which geometry is set to longitude and latitude resp.
-2.Setting Coordinate Reference System(CRS) to WGS 84(World Geodetic System 1984) using EPSG:4326. WGS 84 uses latitude and longitude in degrees to represent locations on Earth.
+1.Creating a GeoPandas dataframe in which geometry is set to longitude and latitude resp.\
+2.Setting Coordinate Reference System(CRS) to WGS 84(World Geodetic System 1984) using EPSG:4326. WGS 84 uses latitude and longitude in degrees to represent locations on Earth.\
 3.We add the basemap by taking the source from OpenStreetMap.Mapnik and set the limits to focus on Andhra Pradesh.\
 ***K-MEANS CLUSTERING:***
 
-Steps in K-Means:
+Steps in K-Means:\
 
-1.Assign random centroids from a given range.
-2.Calculate distances from centroids.
-3.Assign label using 'argmin' of distances.
-4.Update centroids by calculating mean of points.
+1.Assign random centroids from a given range.\
+2.Calculate distances from centroids.\
+3.Assign label using 'argmin' of distances.\
+4.Update centroids by calculating mean of points.\
 5.Iterate this till centroids reach a point of convergence.\
 ***ISUALISATION AND INFERENCES:***
 
-1.We create a dataframe for centroids in the similar way as before.
-2.We iterate through label numbers and collect data of same cluster, then plot this data.
+1.We create a dataframe for centroids in the similar way as before.\
+2.We iterate through label numbers and collect data of same cluster, then plot this data.\
 3.Since it is the postal pincodes we are plotting, it helps us to recognise the density of living and also gives an idea if the area is underdeveloped.\
 That's it! This ends our model!\
 
@@ -44,10 +44,10 @@ That's it! This ends our model!\
 
 ***MODEL:*** This has many layers.
 
-1.Conv2D: This is like building block of CNN and performs convolution operation. Here the first argument is number of filters and next (3,3) is kernel size. This creates the convolutional matrix and the input_shape we provided is (28,28,1). The activation function is set to 'relu' which is Rectified Linear Unit, which sets to 1 if positive, 0 otherwise. Setting padding to same means that output from this layer has same dimensions as input layer. This is achieved by padding zeros to input layer.
-2.Flatten: This layer flattens the output of the convolutional layer into a 1D feature vector. This is necessary because the output of the convolutional layer is a 3D tensor (height, width, channels), but the next layer (dense layer) expects a 1D input.
-3.MaxPooling2D: A max pooling layer, which downsamples the input data to reduce spatial dimensions and the number of parameters.
-4.Dropout: A dropout layer, which randomly sets a fraction of the neurons to zero during training to prevent overfitting.
+1.Conv2D: This is like building block of CNN and performs convolution operation. Here the first argument is number of filters and next (3,3) is kernel size. This creates the convolutional matrix and the input_shape we provided is (28,28,1). The activation function is set to 'relu' which is Rectified Linear Unit, which sets to 1 if positive, 0 otherwise. Setting padding to same means that output from this layer has same dimensions as input layer. This is achieved by padding zeros to input layer.\
+2.Flatten: This layer flattens the output of the convolutional layer into a 1D feature vector. This is necessary because the output of the convolutional layer is a 3D tensor (height, width, channels), but the next layer (dense layer) expects a 1D input.\
+3.MaxPooling2D: A max pooling layer, which downsamples the input data to reduce spatial dimensions and the number of parameters.\
+4.Dropout: A dropout layer, which randomly sets a fraction of the neurons to zero during training to prevent overfitting.\
 5.Dense: This is a fully connected layer. Here the first dense layer contains 64 neurons, the role of this is to ensure that the feature representation is in the correct format since the output layer expects a 1D feature vector as input. The next dense layer is the output layer having 26 neurons, the activation function used here is 'softmax', which is used to output a probability distribution over the classes.\
 
 **Next** is to compile, we use 'adam' optimiser here to update the parameters of model during training. Since our data here can be classified as categorical, loss is set to 'categorical_crossentropy', for which the corresponding metric would be 'accuracy'. In case data is sparse, we consider loss as 'sparse_categorical_crossentropy'.\
@@ -69,10 +69,10 @@ We created two functions here- clean_text to process our data and feature to ext
 
 ***MODEL:*** Here's how naive bayes works,
 
-1.Important thing here is word count, it basically works on just that parameter, which is the reason why it is very less accurate.
-2.Just Bayes formula is used, P(class/features) = P(features/class)*P(class) / P(feature), P(features) is the constant, so there's no need for it while comparing probabilities. So, P(class/features) = P(features/class)*P(class). Here feature used is word count.
-P(features/class) again goes down to product of individual probabilities.
-3.In our first function, 'train_naive_bayes' we calculate the P(features/class) and in the next it is used to find P(class/features). Accuracy, precision, recall and F1-score are then calculated for y_pred and y_test.
+1.Important thing here is word count, it basically works on just that parameter, which is the reason why it is very less accurate.\
+2.Just Bayes formula is used, P(class/features) = P(features/class)*P(class) / P(feature), P(features) is the constant, so there's no need for it while comparing probabilities. So, P(class/features) = P(features/class)*P(class). Here feature used is word count.\
+P(features/class) again goes down to product of individual probabilities.\
+3.In our first function, 'train_naive_bayes' we calculate the P(features/class) and in the next it is used to find P(class/features). Accuracy, precision, recall and F1-score are then calculated for y_pred and y_test.\
 4.As the metrics show, accuracy is very less (as expected...)\
 **With this we completed our sentiment analysis model!**\
 
