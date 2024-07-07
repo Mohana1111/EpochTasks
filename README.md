@@ -1,6 +1,6 @@
 #### ***Epoch Core Task-1***
 ****PS**** : \
-You have been provided with a dataset containing information about various pincodes across India, including their corresponding longitudes and latitudes (clustering_data.csv). Your task is to focus specifically on the pincodes of your home state.\ 
+You have been provided with a dataset containing information about various pincodes across India, including their corresponding longitudes and latitudes (clustering_data.csv). Your task is to focus specifically on the pincodes of your home state.\\ 
 ****Procedure**** : \
 Libraries used : numpy, pandas, matplotlib, contextily, Geopandas \
 ***DATA PREPROCESSING*** : \
