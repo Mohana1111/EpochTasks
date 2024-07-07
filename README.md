@@ -8,18 +8,18 @@ Libraries used : numpy, pandas, matplotlib, contextily, Geopandas\
 2. Stripping values to remove extra spaces
 3. Converting using to_numeric
 4. Using .interpolate() to fill NaN values - it estimates missing values using surrounding data.\
-**DATA VISUALISATION** :\
+**DATA VISUALISATION** :
 1. Creating a GeoPandas dataframe in which geometry is set to longitude and latitude resp.
 2. Setting Coordinate Reference System(CRS) to WGS 84(World Geodetic System 1984) using EPSG:4326. WGS 84 uses latitude and longitude in degrees to represent locations on Earth.
 3. We add the basemap by taking the source from OpenStreetMap.Mapnik and set the limits to focus on Andhra Pradesh.\
-**K-MEANS CLUSTERING** :\
-Steps in K-Means :\
+**K-MEANS CLUSTERING** :
+Steps in K-Means :
 1. Assign random centroids from a given range.
 2. Calculate distances from centroids.
 3. Assign label using 'argmin' of distances.
 4. Updata centroids by calculating mean of points.
 5. Iterate this till centroids reach a point of convergence.\
-**VISUZLISATION AND INFERENCES** :\
+**VISUZLISATION AND INFERENCES** :
 1. We create a dataframe for centroids in the similar way as before.
 2. We iterate through label numbers and collect data of same cluster, then plot this data.
 3. Since it is the postal pincodes we are plotting, it helps us to recognise the density of living and also gives an idea if the area is underdeveloped.\
@@ -40,12 +40,12 @@ I preferred CNN here and for that we need to import certain modules - from tenso
  The values are then *#normalized and stored as 'images'.\
  **MODEL** :\
  This has many layers.\
- Conv2D : This is like building block of CNN and performs convolution operation. Here the first argument is number of filters and next (3,3) is kernel size. This creates the convolutional matrix and the input_shape we provided is (28,28,1). The activation funciton is set to 'relu' which is Rectified Linear Unit, which sets to 1 if positive, 0 otherwise. Setting padding to same means that output from this layer has same dimentions as input layer. This is achieved by padding zeros to input layer.\
-Flatten : This layer flattens the output of the convolutional layer into a 1D feature vector. This is necessary because the output of the convolutional layer is a 3D tensor (height, width, channels), but the next layer (dense layer) expects a 1D input.\
-MaxPooling2D :  A max pooling layer, which downsamples the input data to reduce spatial dimensions and the number of parameters.\
-DropOut :  A dropout layer, which randomly sets a fraction of the neurons to zero during training to prevent overfitting.\
-Dense : This is a fully connected layer. Here the first dense layer contains 64 neurons, the role of this is to ensure that the feature representation is in the correct format since the output layer expects a 1D feature vector as input. The next dense layer is the output layer having 26 neurons, the activation function used here is 'softmax', which is used to output a probability distribution over the classes.\
-**Next** is to compile, we use 'adam' optimiser here to update the parameters of model during training. Since our data here can be classified as categorical, loss is set to 'categorical_crossentropy', for which the corresponding metric would be 'accuracy'. In case data is sparse, we consider loss as 'sparse_categorical_crossentropy'.
+ 1. Conv2D : This is like building block of CNN and performs convolution operation. Here the first argument is number of filters and next (3,3) is kernel size. This creates the convolutional matrix and the input_shape we provided is (28,28,1). The activation funciton is set to 'relu' which is Rectified Linear Unit, which sets to 1 if positive, 0 otherwise. Setting padding to same means that output from this layer has same dimentions as input layer. This is achieved by padding zeros to input layer.\
+2. Flatten : This layer flattens the output of the convolutional layer into a 1D feature vector. This is necessary because the output of the convolutional layer is a 3D tensor (height, width, channels), but the next layer (dense layer) expects a 1D input.\
+3. MaxPooling2D :  A max pooling layer, which downsamples the input data to reduce spatial dimensions and the number of parameters.\
+4.DropOut :  A dropout layer, which randomly sets a fraction of the neurons to zero during training to prevent overfitting.\
+5.Dense : This is a fully connected layer. Here the first dense layer contains 64 neurons, the role of this is to ensure that the feature representation is in the correct format since the output layer expects a 1D feature vector as input. The next dense layer is the output layer having 26 neurons, the activation function used here is 'softmax', which is used to output a probability distribution over the classes.\
+**Next** is to compile, we use 'adam' optimiser here to update the parameters of model during training. Since our data here can be classified as categorical, loss is set to 'categorical_crossentropy', for which the corresponding metric would be 'accuracy'. In case data is sparse, we consider loss as 'sparse_categorical_crossentropy'.\
 *Callback* : We create a TensorBoard callback object in Keras, which is used to visualize and track the training process of a deep learning model. In this part, log_dir is the directory in which the log info is stored. This includes Loss and accuracy values for each epoch, Learning rate schedules, Model weights and gradients, etc. After the process is complete, it can be visualised by running 'tensorboard --logdir=./logs' on terminal.\
 *Label processing* : Since the labels we have are alphabets, we might need to collect corresponding numbers since our nn returns label as number. For that we create a dictionary 'label_mapping' and collect 'numerical_labels' from that.Then these are 'one-hot coded' using to_categorical function, which basically means we generate a 28*28 array showing each label. This is especially useful here when we are using soft-max algorithm.\
 *Then our model is split, trained and evaluated*\
